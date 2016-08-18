@@ -76,6 +76,7 @@ print YearList2
 y2 = CountTrials2
 x2 = YearList2
 
+#plot Trials and Funding
 fig = plt.figure()
 ax = fig.add_subplot(111)
 ax.plot(x2, y, 'o-', label = 'Funding')
@@ -92,3 +93,21 @@ ax.set_ylim(0, 450)
 ax.set_xlim(1997, 2015)
 ax.set_title('Cancer Immunotherapy Funding and Clinical Trials, 1997-2015')
 plt.show()
+
+#linear regression
+# The dependent variables
+x1 = np.matrix(SumFunds).transpose()
+x2 = np.matrix(CountTrials2).transpose()
+# The independent variables shaped as columns
+y = np.matrix(YearList2).transpose()
+
+
+#create input matrix
+x = np.column_stack([x1,x2])
+
+#create linear model
+X = sm.add_constant(x)
+model = sm.OLS(y,X)
+f = model.fit()
+# output results summary
+print f.summary()
